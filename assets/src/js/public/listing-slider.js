@@ -104,7 +104,7 @@
             // Conditionally add autoplay property
             if (enableRelatedAutoplay === "true") {
                 swiperRelatedConfig.autoplay = {
-                    delay: checkData(parseInt(el.dataset.swSpeed), 500),
+                    delay: checkData(parseInt(el.dataset.swSpeed), 2000),
                     disableOnInteraction: false,
                     pauseOnMouseEnter: true,
                 };
