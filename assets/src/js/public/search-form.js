@@ -106,35 +106,39 @@ import './components/directoristSelect';
         });
 
         // Basic Search Dropdown Toggle
-        $('body').on('click', '.directorist-search-form__top .directorist-search-basic-dropdown-label, .directorist-search-modal .directorist-search-basic-dropdown-label', function (e) {
-            e.preventDefault();
-            let dropDownParent = $(this).closest('.directorist-search-field');
-            let dropDownContent = $(this).siblings('.directorist-search-basic-dropdown-content');
+        if (!window.isSearchFormInitialized) {
+            window.isSearchFormInitialized = true;
 
-            dropDownContent.toggleClass('dropdown-content-show');
-            dropDownContent.slideToggle().show();
+            $('body').on('click', '.directorist-search-basic-dropdown-label', function (e) {
+                e.preventDefault();
 
-            if (dropDownContent.hasClass('dropdown-content-show')) {
-                dropDownParent.addClass('input-is-focused');
-            } else {
-                dropDownParent.removeClass('input-is-focused');
-            }
-            // Hide all other open contents
-            $('.directorist-search-basic-dropdown-content.dropdown-content-show').not(dropDownContent).removeClass('dropdown-content-show').slideUp();
-        });
+                // Your existing dropdown toggle logic
+                let dropDownContent = $(this).siblings('.directorist-search-basic-dropdown-content');
+                dropDownContent.toggleClass('dropdown-content-show').stop(true, true).slideToggle();
 
-        // Dropdown Content Hide on Outside Click
+                // Ensure other dropdowns are closed
+                $('.directorist-search-basic-dropdown-content.dropdown-content-show')
+                    .not(dropDownContent)
+                    .removeClass('dropdown-content-show')
+                    .stop(true, true)
+                    .slideUp();
+            });
+        }
+
+
+        // Hide Dropdown on Outside Click
         $('body').on('click', function (e) {
             let dropDownRoot = $(e.target).closest('.directorist-search-form-dropdown');
             let dropDownParent = $('.directorist-search-form-dropdown.input-is-focused');
             let dropDownContent = $('.directorist-search-basic-dropdown-content.dropdown-content-show');
 
             if (!dropDownRoot.length) {
+                // Hide dropdown if clicked outside
                 dropDownParent.removeClass('input-is-focused');
-                dropDownContent.removeClass('dropdown-content-show');
-                dropDownContent.slideUp();
+                dropDownContent.removeClass('dropdown-content-show').stop(true, true).slideUp(); // Stop any animations
             }
         });
+
 
         // Check Empty Search Fields on Search Modal
         function initSearchFields() {

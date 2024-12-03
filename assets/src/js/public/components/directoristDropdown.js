@@ -102,17 +102,26 @@
 
 
         // Directorist Dropdown
-        $('body').on('click', '.directorist-dropdown-js .directorist-dropdown__toggle-js', function (e) {
-            e.preventDefault();
-            if (!$(this).siblings('.directorist-dropdown__links-js').is(':visible')) {
-                $('.directorist-dropdown__links').hide();
-            }
-            $(this).siblings('.directorist-dropdown__links-js').toggle();
-        });
-        $('body').on('click', function (e) {
-            if (!e.target.closest('.directorist-dropdown-js')) {
-                $('.directorist-dropdown__links-js').hide();
-            }
-        })
+        if (!window.isAllListingsInitialized) {
+            window.isAllListingsInitialized = true;
+        
+            $('body').on('click', '.directorist-dropdown-js .directorist-dropdown__toggle-js', function (e) {
+                e.preventDefault();
+                const dropdownLinks = $(this).siblings('.directorist-dropdown__links-js');
+        
+                if (!dropdownLinks.is(':visible')) {
+                    $('.directorist-dropdown__links-js').hide();
+                    dropdownLinks.show();
+                } else {
+                    dropdownLinks.hide();
+                }
+            });
+        
+            $('body').on('click', function (e) {
+                if (!e.target.closest('.directorist-dropdown-js')) {
+                    $('.directorist-dropdown__links-js').hide();
+                }
+            });
+        }
     });
 })(jQuery);
