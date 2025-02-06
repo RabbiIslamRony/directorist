@@ -5,7 +5,6 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
 import './components/colorPicker';
 import './components/directoristDropdown';
 import './components/directoristSelect';
-import './range-slider';
 
 (function ($) {
     window.addEventListener('load', () => {
@@ -439,7 +438,7 @@ import './range-slider';
         });
 
         // Search Field Input Value Check
-        function inputValueCheck(e, searchField) {
+        function inputValueCheck(searchField) {
             searchField = searchField[0];
 
             let inputBox = searchField.querySelector('.directorist-search-field__input:not(.directorist-search-basic-dropdown)');
@@ -454,6 +453,9 @@ import './range-slider';
                 inputFieldValue = ''
                 if(searchField.classList.contains('input-has-value')) {
                     searchField.classList.remove('input-has-value');
+                }
+                if(searchField.classList.contains('input-is-focused')) {
+                    searchField.classList.remove('input-is-focused');
                 }
             }
         }
@@ -507,11 +509,24 @@ import './range-slider';
             });
         }
 
+        // Search Form Select Field Init
+        function initSelectFields() {
+            let selectFields = document.querySelectorAll('.directorist-select.directorist-search-field__input:not(.directorist-search-basic-dropdown');
+
+            selectFields.forEach((selectField) => {
+                let searchField = $(selectField).closest('.directorist-search-field');
+
+                inputValueCheck( searchField );
+            })
+        }
+
+        initSelectFields();
+
         // Search Form Input Field Check Trigger
         $('body').on('input keyup change', '.directorist-search-field__input:not(.directorist-search-basic-dropdown)', function(e) {
             let searchField = $(this).closest('.directorist-search-field');
 
-            inputValueCheck(e, searchField);
+            inputValueCheck(searchField);
 
         });
 
@@ -1007,13 +1022,13 @@ import './range-slider';
                 const milesParams = new URLSearchParams(window.location.search).has('miles');
 
                 directoristCustomRangeSlider?.create(slider, {
-                    start: [minInput.value, sliderDefaultValue && !milesParams ? sliderDefaultValue : maxInput.value],
+                    start: [0, sliderDefaultValue ? sliderDefaultValue : 100],
                     connect: true,
                     direction: isRTL ? 'rtl' : 'ltr',
                     step: sliderStep ? sliderStep : 1,
                     range: {
-                        'min': Number(0),
-                        'max': Number(sliderMaxValue)
+                        'min': Number(minInput.value ? minInput.value : 0),
+                        'max': Number(maxInput.value ? maxInput.value : 100)
                     }
                 });
 
@@ -1131,7 +1146,7 @@ import './range-slider';
             };
             $.ajax({
                 url: url,
-                method: 'POST',
+                method: 'GET',
                 data : directorist.i18n_text.select_listing_map === 'google' ? google_data : "",
                 success: function( data ) {
                     if( data.data && data.data.error_message ) {
