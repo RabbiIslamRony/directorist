@@ -13,10 +13,10 @@
   /*
   for shortable field*/
 }
-#directiost-listing-fields_wrapper .diectorist-show {
+#directiost-listing-fields_wrapper .directorist-show {
   display: block !important;
 }
-#directiost-listing-fields_wrapper .diectorist-hide {
+#directiost-listing-fields_wrapper .directorist-hide {
   display: none !important;
 }
 #directiost-listing-fields_wrapper a:focus,
@@ -5817,8 +5817,8 @@ body.wp-admin {
   transition: all ease-in-out 300ms;
 }
 #atbdp_ie_download_sample:hover {
-  border-color: rgb(37.7561576355, 78.2783251232, 243.7438423645);
-  background: rgb(37.7561576355, 78.2783251232, 243.7438423645);
+  border-color: #264ef4;
+  background: #264ef4;
   color: #fff;
 }
 
@@ -9745,7 +9745,7 @@ body.stop-scrolling {
       -ms-flex-align: center;
           align-items: center;
   gap: 12px;
-  width: 270px;
+  width: 290px;
   min-height: 36px;
   padding: 7px 16px;
   border: none;
@@ -9757,6 +9757,7 @@ body.stop-scrolling {
   text-decoration: none !important;
   color: var(--directorist-color-light-gray);
   background-color: transparent;
+  border: 1px solid transparent;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   -webkit-transition: background 0.2s ease, color 0.2s ease, -webkit-box-shadow 0.2s ease;
@@ -9820,7 +9821,7 @@ body.stop-scrolling {
   color: var(--directorist-color-primary);
   -webkit-box-shadow: var(--directorist-box-shadow);
           box-shadow: var(--directorist-box-shadow);
-  border: 1px solid var(--directorist-color-border-light);
+  border-color: var(--directorist-color-border-light);
   background-color: var(--directorist-color-white);
   outline: none;
 }
@@ -9846,7 +9847,7 @@ body.stop-scrolling {
 .multistep-wizard__nav__btn.completed i::after {
   background-color: var(--directorist-color-primary);
 }
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 991px) {
   .multistep-wizard__nav {
     display: none;
   }
@@ -9867,7 +9868,7 @@ body.stop-scrolling {
 .multistep-wizard__single span.required {
   color: var(--directorist-color-danger);
 }
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 991px) {
   .multistep-wizard__single .directorist-content-module__title {
     position: relative;
     cursor: pointer;
@@ -14802,7 +14803,7 @@ input:-webkit-autofill:active {
   background-color: #3e62f5;
 }
 .cptm-btn.cptm-btn-primary:hover {
-  background-color: rgb(52.3024630542, 90.1113300493, 244.4975369458);
+  background-color: #345af4;
 }
 .cptm-btn.cptm-btn-secondery {
   color: #3e62f5;
@@ -17301,7 +17302,7 @@ input[type=radio].cptm-radio {
   transition: all ease-in-out 300ms;
 }
 .cptm-widget-control-action:hover {
-  background-color: rgb(13.5123152709, 58.5566502463, 242.4876847291);
+  background-color: #0e3bf2;
 }
 
 .cptm-listing-card-preview-body-placeholder {
@@ -19847,7 +19848,7 @@ input[type=radio]:checked::before {
   background-color: #3e62f5;
 }
 .cptm-btn.cptm-btn-primary:hover {
-  background-color: rgb(52.3024630542, 90.1113300493, 244.4975369458);
+  background-color: #345af4;
 }
 .cptm-btn.cptm-btn-secondery {
   color: #3e62f5;
@@ -22346,7 +22347,7 @@ input[type=radio].cptm-radio {
   transition: all ease-in-out 300ms;
 }
 .cptm-widget-control-action:hover {
-  background-color: rgb(13.5123152709, 58.5566502463, 242.4876847291);
+  background-color: #0e3bf2;
 }
 
 .cptm-listing-card-preview-body-placeholder {
@@ -25180,7 +25181,7 @@ input[type=radio]:checked::before {
   background-color: #3e62f5;
 }
 .cptm-btn.cptm-btn-primary:hover {
-  background-color: rgb(52.3024630542, 90.1113300493, 244.4975369458);
+  background-color: #345af4;
 }
 .cptm-btn.cptm-btn-secondery {
   color: #3e62f5;
@@ -27679,7 +27680,7 @@ input[type=radio].cptm-radio {
   transition: all ease-in-out 300ms;
 }
 .cptm-widget-control-action:hover {
-  background-color: rgb(13.5123152709, 58.5566502463, 242.4876847291);
+  background-color: #0e3bf2;
 }
 
 .cptm-listing-card-preview-body-placeholder {
@@ -29654,8 +29655,8 @@ input[type=radio]:checked::before {
   outline: none;
 }
 .settings-save-btn:hover {
-  border-color: rgb(37.7561576355, 78.2783251232, 243.7438423645);
-  background: rgb(37.7561576355, 78.2783251232, 243.7438423645);
+  border-color: #264ef4;
+  background: #264ef4;
   color: #fff;
 }
 .settings-save-btn:disabled {
