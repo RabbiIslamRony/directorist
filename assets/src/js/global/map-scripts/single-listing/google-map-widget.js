@@ -1,7 +1,7 @@
 /* Widget google map */
 
 (function ($) {
-    // Single Listing Map Initialize   
+    // Single Listing Map Initialize
     function initSingleMap() {
         if ($('#gmap-widget').length) {
             var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
@@ -46,7 +46,7 @@
                 this.div.className = 'map-icon-label';
 
                 // Trigger the marker click handler if clicking on the label
-                google.maps.event.addDomListener(this.div, 'click', function (e) {
+                google.maps.event.addListener(this.div, 'click', function (e) {
                     (e.stopPropagation) && e.stopPropagation();
                     google.maps.event.trigger(self.marker, 'click');
                 });
@@ -120,12 +120,14 @@
             };
 
             // create an info window for map
-            if (display_map_info) {
-                info_window = new google.maps.InfoWindow({
-                    content: info_content,
-                    maxWidth: 400 /*Add configuration for max width*/
-                });
-            }
+            marker.addListener('click', function () {
+                if (display_map_info) {
+                    display_map_info = false;
+                } else {
+                    info_window.close();
+                    display_map_info = true;
+                }
+            });
 
             function initMap() {
                 console.log('initMap');
@@ -181,7 +183,7 @@
         initSingleMap()
     })
 
-    // Single Listing Map on Elementor EditMode 
+    // Single Listing Map on Elementor EditMode
     $(window).on('elementor/frontend/init', function () {
         setTimeout(function() {
             if ($('body').hasClass('elementor-editor-active')) {
