@@ -447,7 +447,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     'description'   => sprintf(
                         __( 'Enable this option to charge users for featuring their listing.
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        Note: You need to add the "Listing Type" field to the add listing form for this feature to work properly. 
+                        Note: You need to add the "Listing Type" field to the add listing form for this feature to work properly.
                         <a href="%s" target="_blank">Watch how</a>', 'directorist' ),
                         esc_url( '' ) // Replace with your URL
                     ),
@@ -732,17 +732,17 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label'       => __('Background Color', 'directorist'),
                     'value'       => '#fa8b0c',
                     'change-if'    => [
-                        'where' => 'feature_badge_type',
+                        'where' => 'badge_display_type',
                         'conditions' => [
                             [
-                                'key' => 'value', 
-                                'compare' => '=', 
+                                'key' => 'value',
+                                'compare' => '=',
                                 'value' => 'icon_badge'
                             ],
                         ],
                         'effects' => [
-                            [ 
-                                'key' => 'label', 
+                            [
+                                'key' => 'label',
                                 'value' => __('Hover Background Color', 'directorist'),
                                 'default_value' => __('Background Color', 'directorist')
                             ],
@@ -751,15 +751,49 @@ Please remember that your order may be canceled if you do not make your payment 
                 ],
 
                 'popular_back_color' => [
-                    'type' => 'color',
-                    'label' => __('Background Color', 'directorist'),
-                    'value' => '#f51957',
+                    'type'      => 'color',
+                    'label'     => __('Background Color', 'directorist'),
+                    'value'     => '#f51957',
+                    'change-if' => [
+                        'where'      => 'badge_display_type',
+                        'conditions' => [
+                            [
+                                'key'     => 'value',
+                                'compare' => '=',
+                                'value'   => 'icon_badge'
+                            ],
+                        ],
+                        'effects' => [
+                            [
+                                'key'           => 'label',
+                                'value'         => __( 'Hover Background Color', 'directorist' ),
+                                'default_value' => __( 'Background Color', 'directorist' )
+                            ],
+                        ],
+                    ],
                 ],
 
                 'new_back_color' => [
                     'type' => 'color',
                     'label' => __('Background Color', 'directorist'),
                     'value' => '#2C99FF',
+                    'change-if' => [
+                        'where'      => 'badge_display_type',
+                        'conditions' => [
+                            [
+                                'key'     => 'value',
+                                'compare' => '=',
+                                'value'   => 'icon_badge'
+                            ],
+                        ],
+                        'effects' => [
+                            [
+                                'key'           => 'label',
+                                'value'         => __( 'Hover Background Color', 'directorist' ),
+                                'default_value' => __( 'Background Color', 'directorist' )
+                            ],
+                        ],
+                    ],
                 ],
 
                 // Map Marker Color
@@ -1379,11 +1413,44 @@ Please remember that your order may be canceled if you do not make your payment 
                     ],
                 ],
                 // badge settings
+                'badge_display_type' => [
+                    'label'       => __( 'Badge Display Type', 'directorist' ),
+                    'description' => __( 'Choose how badges should be displayed on listings', 'directorist' ),
+                    'type'        => 'select',
+                    'value'       => 'text_badge',
+                    'options'     => [
+                        [
+                            'value' => 'text_badge',
+                            'label' => __( 'Text Badge', 'directorist' ),
+                        ],
+                        [
+                            'value' => 'icon_badge',
+                            'label' => __( 'Icon Badge', 'directorist' ),
+                        ],
+                    ],
+                ],
                 'new_badge_text'    => [
                     'type'          => 'text',
                     'label'         => __('Badge Text', 'directorist'),
                     'description'   => __('Text displayed on the badge when a listing is newly created.', 'directorist'),
                     'value'         => __('New', 'directorist'),
+                    'change-if'    => [
+                        'where'      => 'badge_display_type',
+                        'conditions' => [
+                            [
+                                'key'     => 'value',
+                                'compare' => '=',
+                                'value'   => 'icon_badge'
+                            ],
+                        ],
+                        'effects' => [
+                            [
+                                'key'           => 'label',
+                                'value'         => __( 'Badge Hover Text', 'directorist' ),
+                                'default_value' => __( 'Badge Text', 'directorist' )
+                            ],
+                        ],
+                    ],
                 ],
                 'new_listing_day' => [
                     'label'         => __('New Badge Display Duration', 'directorist'),
@@ -1394,38 +1461,23 @@ Please remember that your order may be canceled if you do not make your payment 
                     'max'           => '100',
                     'step'          => '1',
                 ],
-                'feature_badge_type' => [
-                    'label'     => __('Badge Type', 'directorist'),
-                    'type'      => 'select',
-                    'value'     => 'text_badge',
-                    'options'   => [
-                        [
-                            'value' => 'text_badge',
-                            'label' => __('Text Badge', 'directorist'),
-                        ],
-                        [
-                            'value' => 'icon_badge',
-                            'label' => __('Icon with Hover Text', 'directorist'),
-                        ],
-                    ],
-                ],
                 'feature_badge_text' => [
                     'type'         => 'text',
                     'label'        => __('Badge Text', 'directorist'),
                     'description'  => __('Text displayed on the badge when a listing is marked as featured.', 'directorist'),
                     'value'        => __('Featured', 'directorist'),
                     'change-if'    => [
-                        'where' => 'feature_badge_type',
+                        'where' => 'badge_display_type',
                         'conditions' => [
                             [
-                                'key' => 'value', 
-                                'compare' => '=', 
+                                'key' => 'value',
+                                'compare' => '=',
                                 'value' => 'icon_badge'
                             ],
                         ],
                         'effects' => [
-                            [ 
-                                'key' => 'label', 
+                            [
+                                'key' => 'label',
                                 'value' => __('Badge Hover Text', 'directorist'),
                                 'default_value' => __('Badge Text', 'directorist')
                             ],
@@ -1437,6 +1489,23 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label'         => __('Badge Text', 'directorist'),
                     'description'   => __('Text displayed on the badge when an item is marked as popular.', 'directorist'),
                     'value'         => __('Popular', 'directorist'),
+                    'change-if'    => [
+                        'where'      => 'badge_display_type',
+                        'conditions' => [
+                            [
+                                'key'     => 'value',
+                                'compare' => '=',
+                                'value'   => 'icon_badge'
+                            ],
+                        ],
+                        'effects' => [
+                            [
+                                'key'           => 'label',
+                                'value'         => __( 'Badge Hover Text', 'directorist' ),
+                                'default_value' => __( 'Badge Text', 'directorist' )
+                            ],
+                        ],
+                    ],
                 ],
                 'listing_popular_by' => [
                     'label'     => __('Determine Popularity By', 'directorist'),
@@ -1466,6 +1535,12 @@ Please remember that your order may be canceled if you do not make your payment 
                     'description'   => __('Count views from logged-in users toward popularity.', 'directorist'),
                     'value'         => false,
                 ],
+				'dynamic_view_count_cache' => [
+					'type'          => 'toggle',
+					'label'         => __('Dynamic View Count Cache', 'directorist'),
+					'description'   => __('Enable real-time view count updates when using page caching plugins (W3 Total Cache, LiteSpeed Cache, etc). This ensures accurate listing view statistics even with caching enabled.', 'directorist'),
+					'value'         => false,
+				],
                 'average_review_for_popular' => [
                     'label'         => __('Minimum Average Rating', 'directorist'),
                     'description'   => __('Minimum average rating (equal or greater than) to mark an item as popular.', 'directorist'),
@@ -2331,6 +2406,20 @@ Please remember that your order may be canceled if you do not make your payment 
                     'label' => __('Transaction Failure Page', 'directorist'),
                     'type'  => 'select',
                     'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<div class="atbdp_shortcodes" style="color: #ff4500;">[directorist_transaction_failure]</div>'),
+                    'value' => '',
+                    'showDefaultOption' => true,
+                    'options' => $this->get_pages_vl_arrays(),
+                ],
+                'privacy_policy' => [
+                    'label' => __('Privacy Policy Page', 'directorist'),
+                    'type'  => 'select',
+                    'value' => '',
+                    'showDefaultOption' => true,
+                    'options' => $this->get_pages_vl_arrays(),
+                ],
+                'terms_conditions' => [
+                    'label' => __('Terms & Conditions Page', 'directorist'),
+                    'type'  => 'select',
                     'value' => '',
                     'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
@@ -3621,32 +3710,32 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'listing_template_view' => [
                                     'title'       => __( 'Listing Template and View', 'directorist' ),
                                     'fields'      => [
-                                        'single_listing_template', 'disable_single_listing', 'restrict_single_listing_for_logged_in_user',  
+                                        'single_listing_template', 'disable_single_listing', 'restrict_single_listing_for_logged_in_user',
                                     ],
                                 ],
                                 'listing_permalink' => [
                                     'title'       => __( 'Listing Permalink', 'directorist' ),
                                     'fields'      => [
-                                        'atbdp_listing_slug', 
+                                        'atbdp_listing_slug',
                                         'single_listing_slug_with_directory_type',
                                     ],
                                 ],
                                 'submission_confirmation' => [
                                     'title'       => __( 'Submission Confirmations', 'directorist' ),
                                     'fields'      => [
-                                        'submission_confirmation', 
-                                        'pending_confirmation_msg', 
+                                        'submission_confirmation',
+                                        'pending_confirmation_msg',
                                         'publish_confirmation_msg',
                                     ],
                                 ],
                                 'slider_image' => [
                                     'title'       => __( 'Slider Image', 'directorist' ),
                                     'fields'      => [
-                                        'dsiplay_slider_single_page', 
-                                        'single_slider_image_size', 
-                                        'single_slider_background_type', 
-                                        'single_slider_background_color', 
-                                        'gallery_crop_width', 
+                                        'dsiplay_slider_single_page',
+                                        'single_slider_image_size',
+                                        'single_slider_background_type',
+                                        'single_slider_background_color',
+                                        'gallery_crop_width',
                                         'gallery_crop_height'
                                     ],
                                 ],
@@ -3697,7 +3786,14 @@ Please remember that your order may be canceled if you do not make your payment 
                             'icon' => '<i class="fa fa-certificate"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_badge_sections', [
                                 'badge_management' => [
-                                    'title'       => __('New Badge', 'directorist'),
+                                    'title'       => __('General', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'badge_display_type',
+                                    ],
+                                ],
+                                'new_badge' => [
+                                    'title'       => __( 'New Badge', 'directorist' ),
                                     'description' => '',
                                     'fields'      => [
                                         'new_badge_text', 'new_listing_day', 'new_back_color',
@@ -3707,14 +3803,14 @@ Please remember that your order may be canceled if you do not make your payment 
                                     'title'       => __('Popular Badge', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'popular_badge_text', 'listing_popular_by', 'views_for_popular', 'average_review_for_popular', 'count_loggedin_user', 'popular_back_color',
+                                        'popular_badge_text', 'listing_popular_by', 'views_for_popular', 'average_review_for_popular', 'count_loggedin_user', 'dynamic_view_count_cache', 'popular_back_color',
                                     ],
                                 ],
                                 'featured_badge' => [
                                     'title'       => __('Featured Badge', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'feature_badge_type', 'feature_badge_text', 'featured_back_color',
+                                        'feature_badge_text', 'featured_back_color',
                                     ],
                                 ],
                             ] ),
@@ -3738,7 +3834,7 @@ Please remember that your order may be canceled if you do not make your payment 
                             'title'       => __('Page, Links & View Settings', 'directorist'),
                             'description' => '',
                             'fields'      => apply_filters( 'atbdp_pages_settings_fields', [
-                                'add_listing_page', 'all_listing_page', 'user_dashboard', 'signin_signup_page', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page'
+                                'add_listing_page', 'all_listing_page', 'user_dashboard', 'signin_signup_page', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
                              ] ),
                         ],
                     ]),
@@ -4021,7 +4117,7 @@ Please remember that your order may be canceled if you do not make your payment 
                                 'sender_details' => [
                                     'title'       => __( 'Sender Details', 'directorist' ),
                                     'fields'      => [
-                                        'email_from_name', 
+                                        'email_from_name',
                                         'email_from_email',
                                      ],
                                 ],
@@ -4157,14 +4253,14 @@ Please remember that your order may be canceled if you do not make your payment 
                             'sections' => apply_filters( 'atbdp_listing_settings_monetization_general_sections', [
                                 'general' => [
                                     'description' => '',
-                                    'fields'      => [ 
+                                    'fields'      => [
                                         'enable_monetization',
                                     ],
                                 ],
                                 'currency' => [
                                     'title'       => __( 'Currency', 'directorist' ),
                                     'description' => '',
-                                    'fields'      => [ 
+                                    'fields'      => [
                                         'payment_currency_note',
                                         'payment_currency',
                                         'payment_thousand_separator',
