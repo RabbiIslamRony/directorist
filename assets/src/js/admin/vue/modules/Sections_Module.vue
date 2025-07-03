@@ -109,6 +109,7 @@
             @validate="updateFieldValidationState(field, $event)"
             @is-visible="updateFieldData(field, 'isVisible', $event)"
             @do-action="doAction($event, 'sections-module')"
+            :isVisible="isVisible"
           />
 
           <!-- Insert the wrapped container fields right after "way_to_show_preview" -->

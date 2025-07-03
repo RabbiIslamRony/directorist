@@ -225,27 +225,25 @@ export default {
   name: "formgent-form-field",
   mixins: [props, field_helper],
 
-  created() {
-    this.init();
-  },
-
-  computed: {
-    formgentFormList() {
-      return this.forms.map((form) => ({
-        label: form.label,
-        value: form.value,
-      }));
-    },
+  props: {
+    isVisible: {
+      type: Boolean,
+      default: false
+    }
   },
 
   watch: {
+    isVisible(newVal) {
+      if (newVal && !this.formsLoaded) {
+        this.init();
+      }
+    },
     alerts() {
       this.$emit(
         "alert",
         Object.keys(this.alerts).length ? { ...this.alerts } : null,
       );
     },
-
     value() {
       this.updateNoFormSelectedAlert();
     },
@@ -264,6 +262,7 @@ export default {
         href: "#",
         label: "Create a new Form",
       },
+      formsLoaded: false,
     };
   },
 
@@ -271,15 +270,14 @@ export default {
     updateValue(value) {
       this.$emit("update", value);
     },
-
     init() {
       this.loadPropsData();
       this.loadLocalizeData();
       this.updateMissingDependencyAlert();
-
-      if (this.isFormGentActive) {
+      if (this.isFormGentActive && !this.formsLoaded) {
         this.loadForms();
       }
+      this.formsLoaded = true;
     },
 
     loadPropsData() {
