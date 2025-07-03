@@ -204,6 +204,10 @@ export default {
     learn_more: {
       type: Object,
     },
+    isVisible: {
+      type: Boolean,
+      default: false
+    }
   },
 
   computed: {
@@ -308,8 +312,16 @@ export default {
     },
   },
 
+  watch: {
+    isVisible(newVal) {
+      if (newVal) {
+        this.init();
+      }
+    }
+  },
+
   mounted() {
- 
+    this.init();
   },
 };
 </script>
