@@ -86,4 +86,50 @@ If issues occur, you can rollback to Node.js 20.x (LTS):
 6. Review and update build configurations for better performance
 
 ## Alternative Recommendation
+<<<<<<< HEAD
 For production environments, it is strongly recommended to use Node.js 20.x (LTS) instead of 22.x. The LTS version provides better stability and compatibility with existing packages. 
+=======
+For production environments, it is strongly recommended to use Node.js 20.x (LTS) instead of 22.x. The LTS version provides better stability and compatibility with existing packages.
+
+## Update History
+
+Each time you update Node.js or npm, record the changes here for tracking:
+
+### [2025-07-02] Node.js 22.16.0 → 22.17.0, npm 10.2.4 → 10.9.2
+
+- Packages updated:
+  -
+
+- Notes: (any issues, breaking changes, or manual steps)
+  -
+
+---
+
+### [2025-05-22] Node.js 22.15.0 → 22.16.0
+
+- Packages updated:
+  - webpack: ^5.99.8 → ^5.99.9
+  - sass-loader: ^9.0.2 → ^16.0.5
+  - sass: ^1.69.0 → ^1.89.0
+
+- Notes: (any issues, breaking changes, or manual steps)
+  - Change webpack.common.js for ignore scss deprecated warning
+  - Also Update Scss Function and variables
+
+---
+
+### [2025-05-06] Node.js 16.13.2 → 22.15.0, npm 8.1.2 → 10.x
+
+- Packages updated:
+  - node-sass: 7.0.1 → replaced with sass
+  - sass: (added) → latest
+  - @babel/core: 7.10.5 → latest 7.x
+  - webpack-dev-server: 3.11.0 → latest 3.x
+
+- Notes:
+  - node-sass deprecated, replaced with sass
+  - Webpack 4.x may have compatibility issues with Node.js 22.x
+  - All dependencies reinstalled after cache clean
+
+---
+>>>>>>> 280c42de6 (Merge branch 'development' into login-eye)
