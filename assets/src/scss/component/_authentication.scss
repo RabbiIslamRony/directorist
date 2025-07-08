@@ -188,3 +188,25 @@
     visibility: visible;
   }
 }
+
+/* Password toggle */
+.directorist-password-group {
+	position: relative;
+	&-input {
+		padding-right: 40px !important;
+	}
+	&-toggle {
+		position: absolute;
+		top: calc(50% + 16px);
+		right: 15px;
+		transform: translateY(-50%);
+		cursor: pointer;
+		svg {
+			width: 22px;
+			height: 22px;
+			fill: none;
+			stroke: #888;
+			stroke-width: 2;
+		}
+	}
+}
