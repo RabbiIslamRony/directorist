@@ -86,9 +86,6 @@ If issues occur, you can rollback to Node.js 20.x (LTS):
 6. Review and update build configurations for better performance
 
 ## Alternative Recommendation
-<<<<<<< HEAD
-For production environments, it is strongly recommended to use Node.js 20.x (LTS) instead of 22.x. The LTS version provides better stability and compatibility with existing packages. 
-=======
 For production environments, it is strongly recommended to use Node.js 20.x (LTS) instead of 22.x. The LTS version provides better stability and compatibility with existing packages.
 
 ## Update History
@@ -132,4 +129,3 @@ Each time you update Node.js or npm, record the changes here for tracking:
   - All dependencies reinstalled after cache clean
 
 ---
->>>>>>> 280c42de6 (Merge branch 'development' into login-eye)
