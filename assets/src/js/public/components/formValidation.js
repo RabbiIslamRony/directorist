@@ -48,6 +48,12 @@
 				'.directorist-contact-message-display'
 			);
 
+			// Disable submit button to prevent multiple submissions
+			submit_button.prop('disabled', true);
+			
+			// Set submission state
+			atbdp_contact_submitted = true;
+
 			// Show loading message
 			var msg =
 				'<div class="directorist-alert"><i class="fas fa-circle-notch fa-spin"></i> ' +
@@ -71,7 +77,6 @@
 				directorist.ajaxurl,
 				data,
 				function (response) {
-					submit_button.prop('disabled', false);
 					if (1 == response.error) {
 						atbdp_contact_submitted = false;
 
