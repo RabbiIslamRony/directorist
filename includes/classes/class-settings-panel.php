@@ -1094,6 +1094,30 @@ Please remember that your order may be canceled if you do not make your payment 
                         'value' => 2,
                         'placeholder' => '3',
                     ],
+                    'all_listing_columns' => [
+                        'label'   => __( 'Listings Grid Columns', 'directorist' ),
+                        'type'    => 'radio-images',
+                        'value'   => '2',
+                        'options' => [
+                            [
+                                'value' => '2',
+                                'label' => __( '2 Columns', 'directorist' ),
+                            ],
+                            [
+                                'value' => '3',
+                                'label' => __( '3 Columns', 'directorist' ),
+                            ],
+                            [
+                                'value' => '4',
+                                'label' => __( '4 Columns', 'directorist' ),
+                            ],
+                        ],
+                        'preview' => [
+                            '2' => DIRECTORIST_ASSETS . 'images/col2.png',
+                            '3' => DIRECTORIST_ASSETS . 'images/col3.png',
+                            '4' => DIRECTORIST_ASSETS . 'images/col4.png',
+                        ],
+                    ],
                     'preview_image_quality' => [
                         'label' => __( 'Image Quality', 'directorist' ),
                         'type'  => 'select',
