@@ -862,7 +862,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 			});
 
-			let customRangeSliders = document.querySelectorAll(
+			let customRangeSliders = searchForm.querySelectorAll(
 				'.directorist-custom-range-slider'
 			);
 
@@ -933,28 +933,53 @@ document.addEventListener('DOMContentLoaded', () => {
 				}, 300);
 
 				// Reset search form values
-				if (this.closest('.directorist-contents-wrap')) {
-					let searchForm = this.closest(
-						'.directorist-contents-wrap'
-					).querySelector('.directorist-search-form');
+				const resetTargets = new Set();
+				const searchModal = this.closest('.directorist-search-modal');
+
+				if (searchModal) {
+					resetTargets.add(searchModal);
+					searchModal
+						.querySelectorAll("input[type='checkbox'], input[type='radio']")
+						.forEach((input) => {
+							input.checked = false;
+							input
+								.closest('.directorist-search-field')
+								?.classList.remove('input-has-value', 'input-is-focused');
+						});
+					searchModal.querySelectorAll('select').forEach((select) => {
+						select.selectedIndex = 0;
+						select
+							.closest('.directorist-search-field')
+							?.classList.remove('input-has-value', 'input-is-focused');
+						$(select).trigger('change');
+					});
+				}
+
+				const contentsWrap = this.closest('.directorist-contents-wrap');
+				if (contentsWrap) {
+					let searchForm = contentsWrap.querySelector(
+						'.directorist-search-form'
+					);
 					if (searchForm) {
-						adsFormReset(searchForm);
+						resetTargets.add(searchForm);
 					}
 
-					let advanceSearchForm = this.closest(
-						'.directorist-contents-wrap'
-					).querySelector('.directorist-advanced-filter__form');
+					let advanceSearchForm = contentsWrap.querySelector(
+						'.directorist-advanced-filter__form'
+					);
 					if (advanceSearchForm) {
-						adsFormReset(advanceSearchForm);
+						resetTargets.add(advanceSearchForm);
 					}
 
-					let advanceSearchFilter = this.closest(
-						'.directorist-contents-wrap'
-					).querySelector('.directorist-advanced-filter__advanced');
+					let advanceSearchFilter = contentsWrap.querySelector(
+						'.directorist-advanced-filter__advanced'
+					);
 					if (advanceSearchFilter) {
-						adsFormReset(advanceSearchFilter);
+						resetTargets.add(advanceSearchFilter);
 					}
 				}
+
+				resetTargets.forEach(adsFormReset);
 			});
 		}
 
@@ -2413,6 +2438,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			let slider = sliderItem.querySelector(
 				'.directorist-custom-range-slider__slide'
 			);
+
+			if (!slider) {
+				return;
+			}
+
 			let minInput = sliderItem.querySelector(
 				'.directorist-custom-range-slider__value__min'
 			);
@@ -2428,15 +2458,15 @@ document.addEventListener('DOMContentLoaded', () => {
 			let defaultValue = slider.getAttribute('default-value') || '0';
 
 			if (radiusSearch) {
-				minInput.value = '0';
-				maxInput.value = defaultValue;
+				if (minInput) minInput.value = '0';
+				if (maxInput) maxInput.value = defaultValue;
 				slider?.directoristCustomRangeSlider?.set([0, defaultValue]); // Set initial values
 			} else {
 				// Reset values to their initial state
 				slider?.directoristCustomRangeSlider?.set([0, 0]); // Set initial values
-				minInput.value = '0'; // Set initial min value
-				maxInput.value = '0'; // Set initial max value
-				rangeValue.value = '0-0';
+				if (minInput) minInput.value = '0'; // Set initial min value
+				if (maxInput) maxInput.value = '0'; // Set initial max value
+				if (rangeValue) rangeValue.value = '0-0';
 			}
 
 			const sidebarRangeSlider = slider.closest('.listing-with-sidebar');

@@ -4628,10 +4628,6 @@ function directorist_filter_listing_empty_metadata( $meta_data ) {
                 return false;
             }
 
-            if ( is_numeric( $value ) && $value == 0 ) {
-                return false;
-            }
-
             return true;
         }, ARRAY_FILTER_USE_BOTH
     );
@@ -4888,6 +4884,49 @@ function directorist_is_guest_user( $user_id = 0 ) {
     $user_type = get_user_meta( $user_id, '_user_type', true );
 
     return ( 'guest' === $user_type );
+}
+
+/**
+ * Get a normalized contact for a registered or anonymous user.
+ *
+ * Extensions can use the fallback values for flows that do not require a
+ * WordPress account, such as guest checkout or booking.
+ *
+ * @since 8.9.4
+ *
+ * @param int|WP_User $user     User ID or user object.
+ * @param array       $fallback Optional anonymous contact data.
+ * @return array{id: int, email: string, name: string} Normalized contact data.
+ */
+function directorist_get_user_contact( $user = 0, $fallback = [] ) {
+    $fallback = wp_parse_args(
+        $fallback,
+        [
+            'email' => '',
+            'name'  => '',
+        ]
+    );
+
+    if ( ! $user instanceof WP_User ) {
+        $user = get_userdata( absint( $user ) );
+    }
+
+    $contact = [
+        'id'    => $user ? (int) $user->ID : 0,
+        'email' => $user ? sanitize_email( $user->user_email ) : sanitize_email( $fallback['email'] ),
+        'name'  => $user ? sanitize_text_field( $user->display_name ) : sanitize_text_field( $fallback['name'] ),
+    ];
+
+    /**
+     * Filters normalized contact data for registered and anonymous users.
+     *
+     * @since 8.9.4
+     *
+     * @param array        $contact  Normalized contact data.
+     * @param WP_User|false $user     Resolved WordPress user, or false.
+     * @param array        $fallback Anonymous fallback values.
+     */
+    return apply_filters( 'directorist_user_contact', $contact, $user, $fallback );
 }
 
 function directorist_renewal_token_hash( $listing_id, $user_id ) {
